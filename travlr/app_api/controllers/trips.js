@@ -56,7 +56,7 @@ const tripsAddTrip = async (req, res) => {
 const tripsUpdateTrip = async (req, res) => {
   console.log(req.body);
   Model.findOneAndUpdate({'code': req.params.tripCode}, {
-    code: req.bode.code,
+    code: req.body.code,
     name: req.body.name,
     length: req.body.length,
     start: req.body.start,
@@ -71,14 +71,14 @@ const tripsUpdateTrip = async (req, res) => {
       })
     }
     res.send(trip)
-  }).catch(err => {
+  })).catch((err) => {
     if (err.kind === 'ObjectId') {
       return res.status(404).send({
         message: "Trip not found with code " + req.params.tripCode
       });
     }
     return res.status(500).json(err) // server error
-  }))
+  })
 }
 
 module.exports = {
